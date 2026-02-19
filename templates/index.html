@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Matceli | Pastelería</title>
+  <link rel="stylesheet" href="/static/css/frontend_main.css" />
+</head>
+
+<body>
+  <!-- Top announcement bar (tipo Milk Bar) -->
+  <div class="topbar">
+    <p>Pedidos y delivery con 48hrs de anticipación</p>
+  </div>
+
+  <!-- Header / Navbar -->
+  <header class="header">
+    <div class="container header__inner">
+      <button class="icon-btn header__menu" aria-label="Abrir menú">
+        <span class="hamburger" aria-hidden="true"></span>
+      </button>
+
+      <a class="brand" href="#" aria-label="Ir al inicio">
+        <img src="/static/images/matceli-logoweb.png" alt="Matceli Pastelería" class="brand__logo">
+      </a>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="#inicio" class="active">Inicio</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#proceso">Proceso de Compra</a>
+        <a href="#clientes">Clientes</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <div class="header__actions">
+        <!-- <a class="icon-btn cart" href="#catalogo" aria-label="Carrito">
+          🛒 <span class="cart__count" aria-label="Productos en carrito">0</span>
+        </a> -->
+        <button class="icon-btn" aria-label="Cuenta">👤</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <!-- HERO: 2 columnas tipo Milk Bar -->
+    <section class="hero">
+      <div class="container hero__grid">
+        <!-- Imagen / bloque izquierdo -->
+        <article class="hero-card hero-card--left">
+          <div class="hero-card__media hero-media hero-media--cake" role="img" aria-label="Torta temática destacada"></div>
+          <div class="hero-card__overlay">
+            <h2 class="title-design">Diseños y detalles que enamoran</h2>
+            <div class="hero-card__cta">
+              <a class="btn btn--primary" href="#catalogo">Ver catálogo</a>
+              <a class="btn btn--ghost" href="#proceso">Cómo comprar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Imagen / bloque derecho -->
+        <article class="hero-card hero-card--right">
+          <div class="hero-card__media hero-media hero-media--cupcakes" role="img" aria-label="Cupcakes y bocaditos destacados"></div>
+          <div class="hero-card__overlay hero-card__overlay--compact">
+            <h2 class="title-cakes">Tortas temáticas para sorprender</h2>
+            <a class="link" href="#catalogo">Explorar opciones →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CATEGORÍAS (círculos + scroll en mobile) -->
+    <section class="category-strip" aria-label="Accesos rápidos">
+      <div class="container">
+        <div class="chips" role="list">
+          
+          <a class="chip" role="listitem" href="#inicio" aria-label="Ir al Inicio">
+            <span class="chip__img chip__img--matceli" aria-hidden="true"></span>
+            <span class="chip__label">Matceli</span>
+          </a>
+
+          <a class="chip" role="listitem" href="#catalogo" aria-label="Ir a Tortas Temáticas">
+            <span class="chip__img chip__img--tortas" aria-hidden="true"></span>
+            <span class="chip__label">Tortas</span>
+          </a>
+
+          <a class="chip" role="listitem" href="#catalogo" aria-label="Ir a Cupcakes">
+            <span class="chip__img chip__img--cup" aria-hidden="true"></span>
+            <span class="chip__label">Cupcakes</span>
+          </a>
+
+          <a class="chip" role="listitem" href="#catalogo" aria-label="Ir a Bocaditos">
+            <span class="chip__img chip__img--boc" aria-hidden="true"></span>
+            <span class="chip__label">Bocaditos</span>
+          </a>
+
+          <a class="chip" role="listitem" href="#contacto" aria-label="Ir a Pedidos por WhatsApp">
+            <span class="chip__img chip__img--wa" aria-hidden="true"></span>
+            <span class="chip__label">WhatsApp</span>
+          </a>
+
+          <!-- <a class="chip" role="listitem" href="#catalogo" aria-label="Ir a Más vendidos">
+            <span class="chip__img chip__img--best" aria-hidden="true"></span>
+            <span class="chip__label">Combos</span>
+          </a> -->
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CATÁLOGO -->
+    <section id="catalogo" class="section">
+      <div class="container">
+        <header class="section__head">
+          <div>
+            <h2>Catálogo</h2>
+            <p class="muted">Elige una categoría y consulta tu diseño personalizado.</p>
+          </div>
+        </header>
+
+        <div class="grid categories">
+          <!-- Card 1 -->
+          <article class="category">
+            <div class="category__img category__img--1" role="img" aria-label="Tortas temáticas"></div>
+            <div class="category__body">
+              <h3>Tortas (temáticas)</h3>
+              <p class="muted">Masa Fondant o Masa Elástica, 2 a 3 niveles</p>
+              <div class="category__actions">
+                <a class="btn btn--primary" href="#contacto">Consultar</a>
+                <button class="btn btn--ghost" type="button" style="font-weight:bold;">
+                  <a href="{{ url_for('cakes') }}"> Ver productos</a>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="category">
+            <div class="category__img category__img--2" role="img" aria-label="Cupcakes"></div>
+            <div class="category__body">
+              <h3>Cupcakes (4, 6, 9, 12 unidades)</h3>
+              <p class="muted">Entrega en cajas con decoración temática</p>
+              <div class="category__actions">
+                <a class="btn btn--primary" href="#contacto">Consultar</a>
+                <button class="btn btn--ghost" type="button" style="font-weight:bold;">
+                  <a href="{{ url_for('cupcakes') }}"> Ver productos</a>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="category">
+            <div class="category__img category__img--3" role="img" aria-label="Bocaditos"></div>
+            <div class="category__body">
+              <h3>Bocaditos (seleccionables)</h3>
+              <p class="muted">Sabores Dulces y salados, con bandejas para eventos</p>
+              <div class="category__actions">
+                <a class="btn btn--primary" href="#contacto">Consultar</a>
+                <button class="btn btn--ghost" type="button" style="font-weight:bold;">
+                  <a href="{{ url_for('snacks') }}"> Ver productos</a>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="category">
+            <div class="category__img category__img--4" role="img" aria-label="Combos"></div>
+            <div class="category__body">
+              <h3>Combos (personalizados)</h3>
+              <p class="muted">Mix de productos, cupcakes + bocaditos</p>
+              <div class="category__actions" aria-disabled="true">
+                <a class="btn btn--primary" href="#contacto">Consultar</a>
+                <button class="btn btn--ghost" type="button" style="font-weight:bold;">
+                  <a href="#"> Ver productos</a>
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESO DE COMPRA -->
+    <section id="proceso" class="section section--alt">
+      <div class="container">
+        <header class="section__head">
+          <div>
+            <h2>Proceso de Compra</h2>
+            <p class="muted">Rápido, claro y con confirmación por WhatsApp.</p>
+          </div>
+        </header>
+
+        <div class="steps">
+          <article class="step">
+            <span class="step__num">1</span>
+            <h3>Elige tu producto</h3>
+            <p class="muted">Tortas temáticas, cupcakes o bocaditos. Define cantidad y fecha.</p>
+          </article>
+
+          <article class="step">
+            <span class="step__num">2</span>
+            <h3>Personaliza</h3>
+            <p class="muted">Tema, colores, mensaje, referencias e indicaciones (alergias).</p>
+          </article>
+
+          <article class="step">
+            <span class="step__num">3</span>
+            <h3>Confirma y recibe</h3>
+            <p class="muted">Aprobación final + pago. Entrega en caja y coordinación de entrega.</p>
+          </article>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn btn--quote" href="#contacto">Pedir por WhatsApp</a>
+          <a class="btn btn--ghost" href="#catalogo">Volver al catálogo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENTES -->
+    <section id="clientes" class="section">
+      <div class="container">
+        <header class="section__head">
+          <div>
+            <h2>Clientes</h2>
+            <p class="muted">Testimonios y entregas reales (puedes reemplazar por fotos tuyas).</p>
+          </div>
+        </header>
+
+        <div class="grid testimonials">
+          <article class="testimonial">
+            <p class="quote">“La torta quedó idéntica a la referencia. Súper recomendado.”</p>
+            <p class="muted">— Cliente, Cumpleaños</p>
+          </article>
+          <article class="testimonial">
+            <p class="quote">“Los cupcakes llegaron perfectos y deliciosos. Excelente presentación.”</p>
+            <p class="muted">— Cliente, Evento</p>
+          </article>
+          <article class="testimonial">
+            <p class="quote">“Los bocaditos volaron en la reunión. ¡Todo increíble!”</p>
+            <p class="muted">— Cliente, Corporativo</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="section section--alt">
+      <div class="container contact">
+        <header class="section__head">
+          <div>
+            <h2>Contacto</h2>
+            <p class="muted">Cuéntanos el tema, fecha, porciones/cantidad y una referencia (foto).</p>
+          </div>
+        </header>
+
+        <div class="contact__grid">
+          <form class="card" action="#" method="post">
+            <label>
+              Nombre
+              <input type="text" name="name" placeholder="Tu nombre" required />
+            </label>
+            <label>
+              WhatsApp
+              <input type="tel" name="phone" placeholder="+51 ..." required />
+            </label>
+            <label>
+              Producto
+              <select name="product" required>
+                <option value="">Seleccionar…</option>
+                <option value="torta">Torta temática</option>
+                <option value="cupcakes">Cupcakes</option>
+                <option value="bocaditos">Bocaditos</option>
+              </select>
+            </label>
+            <label>
+              Detalles del pedido
+              <textarea name="details" style="font-weight: 200;" rows="4" placeholder="Tema, colores, fecha, cantidad/porciones, referencias…"></textarea>
+            </label>
+
+            <button class="btn btn--primary" type="submit">Enviar consulta</button>
+            <!-- <p class="tiny muted">
+              *Este formulario es layout. Puedes conectarlo a Flask / WhatsApp API más adelante.
+            </p> -->
+          </form>
+
+          <aside class="card card--info">
+            <h3>Pedido rápido</h3>
+            <p class="muted">Responde esto por WhatsApp y te cotizamos:</p>
+            <ul class="list">
+              <li>✅ Producto (torta/cupcakes/bocaditos)</li>
+              <li>✅ Tema + foto referencia</li>
+              <li>✅ Fecha y hora</li>
+              <li>✅ Porciones / cantidad</li>
+              <li>✅ Dirección (si aplica delivery)</li>
+            </ul>
+            <br>
+            <a class="btn btn--quote" href="#" aria-label="Abrir WhatsApp">Abrir WhatsApp →</a>
+
+            <div class="divider"></div>
+            <p class="muted tiny">Horario de atención: Lun – Sáb : 9:00 am – 7:00 pm</p>
+            <p class="muted tiny">Lima, Perú</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="muted">© 2026 MATCELI, todos los derechos reservados.</p>
+      <p class="softgray">
+        MATCELI, fue fundado por la emprendedora Lisbet Chupillón, quién dedica su tiempo y esfuerzo en crear productos de calidad, personalizados y a gusto del cliente.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
