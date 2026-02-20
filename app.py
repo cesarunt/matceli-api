@@ -45,7 +45,7 @@ def create_app():
     db.init_app(app)
 
     login_manager = LoginManager()
-    login_manager.login_view = "login"
+    login_manager.login_view = "admin"
     login_manager.init_app(app)
 
     @login_manager.user_loader
@@ -128,18 +128,18 @@ def create_app():
     # -------------------------
     # Admin (login + CRUD)
     # -------------------------
-    @app.get("/login")
-    def login():
+    @app.get("/admin")
+    def admin():
         return render_template("login.html")
 
-    @app.post("/login")
-    def login_post():
+    @app.post("/admin")
+    def admin_post():
         username = request.form.get("username", "").strip()
         password = request.form.get("password", "")
         u = User.query.filter_by(username=username).first()
         if not u or not u.check_password(password):
             flash("Credenciales incorrectas", "error")
-            return redirect(url_for("login"))
+            return redirect(url_for("admin"))
         login_user(u)
         return redirect(url_for("cakes_admin"))
 
@@ -147,7 +147,7 @@ def create_app():
     @login_required
     def logout():
         logout_user()
-        return redirect(url_for("login"))
+        return redirect(url_for("admin"))
 
     @app.get("/admin/cakes")
     @login_required
