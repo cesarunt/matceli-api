@@ -55,7 +55,11 @@ def create_app():
     # Crear BD + usuario admin inicial (solo si no existe)
     with app.app_context():
         #os.makedirs("instance", exist_ok=True)
-        db.create_all()
+        # db.create_all()
+        try:
+            db.create_all()
+        except Exception:
+            app.logger.exception("DB init failed. Check DATABASE_URL connectivity.")
 
         admin_user = os.getenv("ADMIN_USER", "admin")
         admin_pass = os.getenv("ADMIN_PASS", "admin2026$")
