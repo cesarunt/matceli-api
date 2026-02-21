@@ -23,12 +23,10 @@ def create_app():
     ALLOWED_EXT = {"png", "jpg", "jpeg", "webp"}
 
     # SQLite (ligero). En producción puedes cambiar a Postgres con DATABASE_URL
-    db_url = os.getenv("DATABASE_URL", "").strip()
-    # Si Render/otros dan postgres://, normalizamos
-    if db_url.startswith("postgres://"):
+    db_url = os.getenv("DATABASE_URL")
+    if db_url and db_url.startswith("postgres://"):
         db_url = db_url.replace("postgres://", "postgresql://")
-    if db_url:
-        app.config["SQLALCHEMY_DATABASE_URI"] = db_url
+        app.config["SQLALCHEMY_DATABASE_URI"] = db_url or "sqlite:///matceli.db"
     else:
         default_sqlite = "sqlite:///" + os.path.join(app.instance_path, "matceli.db").replace("\\", "/")
         app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", default_sqlite)
@@ -57,7 +55,7 @@ def create_app():
     # Crear BD + usuario admin inicial (solo si no existe)
     with app.app_context():
         #os.makedirs("instance", exist_ok=True)
-        # db.create_all()
+        db.create_all()
         try:
             db.create_all()
         except Exception:
