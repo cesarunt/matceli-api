@@ -31,9 +31,6 @@ def create_app():
         default_sqlite = "sqlite:///" + os.path.join(app.instance_path, "matceli.db").replace("\\", "/")
         app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", default_sqlite)
         
-    #db_url = os.getenv("DATABASE_URL", "sqlite:///instance/matceli.db")
-    #app.config["SQLALCHEMY_DATABASE_URI"] = db_url
-    
     # asegura que exista la carpeta instance real de Flask
     os.makedirs(app.instance_path, exist_ok=True)
 
@@ -77,6 +74,19 @@ def create_app():
     @app.get("/")
     def index():
         return render_template("index.html")
+    
+    # @app.get("/")
+    # def home():
+    #     return {
+    #         "service": "matceli-api",
+    #         "status": "ok",
+    #         "endpoints": [
+    #             "/api/products",
+    #             "/api/products?category=tortas",
+    #             "/login",
+    #             "/admin/cakes"
+    #         ]
+    #     }
 
     # Cakes
     @app.route('/cakes')

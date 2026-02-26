@@ -77,15 +77,15 @@
 
           <script>
           (async () => { 
-            // Admin: http://localhost:5000/login
-            const API = "http://localhost:5000/api/products?category=tortas";
+            const API = "https://matceli-api.onrender.com/api/products?category=tortas";
+            // const API = "http://localhost:5000/api/products?category=tortas";
             const res = await fetch(API);
             const items = await res.json();
 
             const grid = document.querySelector(".products");
             grid.innerHTML = items.map(p => `
               <article class="product">
-                <div class="product__img" style="background-image:url('http://localhost:5000${p.image_url || ''}')"></div>
+                <div class="product__img" style="background-image:url('${p.image_url || ''}')"></div>
                 <div class="product__body">
                   <h3>${p.name}</h3>
                   <p class="muted">${p.short_desc || ''}</p>
