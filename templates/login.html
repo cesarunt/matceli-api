@@ -7,8 +7,9 @@
   <link rel="stylesheet" href="/static/css/admin.css"/>
 </head>
 <body class="wrap">
-  <div class="card">
-    <h1>Matceli Admin</h1>
+  <div class="card" style="text-align: center;">
+    <h2>Matceli</h2>
+    <p style="padding: 0 10px 10px 10px;">Web de Administración de Productos</p>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -21,14 +22,13 @@
     {% endwith %}
 
     <form method="post" action="/admin">
-      <label>Usuario
+      <label style="text-align: left;">Usuario
         <input name="username" autocomplete="username" required>
       </label>
-      <label>Contraseña
+      <label style="text-align: left;">Contraseña
         <input type="password" name="password" autocomplete="current-password" required>
       </label>
-      <button type="submit">Ingresar</button>
-      <p class="muted">Tip: cambia ADMIN_USER y ADMIN_PASS en variables de entorno.</p>
+      <button style="margin: 15px; padding: 12px 20px;" type="submit">Ingresar</button>
     </form>
   </div>
 </body>

@@ -42,9 +42,9 @@
     <section class="section">
       <div class="container">
         <div class="crumbs">
-          <a href="../index.html#inicio">Inicio</a>
+          <a href="{{ url_for('index') }}#inicio">Inicio</a>
           <span>›</span>
-          <a href="../index.html#catalogo">Catálogo</a>
+          <a href="{{ url_for('index') }}#catalogo">Catálogo</a>
           <span>›</span>
           <strong>Cup Cakes</strong>
         </div>
@@ -59,15 +59,8 @@
             <select aria-label="Filtrar por ocasión">
               <option value="all">Toda ocasión</option>
               <option value="cumple">Cumpleaños</option>
-              <option value="boda">Bodas</option>
-              <option value="baby">Baby Shower</option>
+              <option value="anual">Aniversario</option>
               <option value="corp">Corporativo</option>
-            </select>
-            <select aria-label="Filtrar por niveles">
-              <option value="all">Niveles</option>
-              <option value="1">1 piso</option>
-              <option value="2">2 pisos</option>
-              <option value="3">3 pisos</option>
             </select>
           </div>
         </header>
