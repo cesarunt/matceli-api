@@ -120,8 +120,8 @@
               <h3>Tortas (temáticas)</h3>
               <p class="muted">Masa Fondant o Masa Elástica, 2 a 3 niveles</p>
               <div class="category__actions">
-                <a class="btn btn--primary" href="#contacto">Consultar</a>
-                <button class="btn btn--ghost" type="button" style="font-weight:bold;">
+                <!-- <a class="btn btn--primary" href="#contacto">Consultar</a> -->
+                <button class="btn btn--primary" type="button" style="font-weight:bold;">
                   <a href="{{ url_for('cakes') }}"> Ver productos</a>
                 </button>
               </div>
@@ -135,8 +135,8 @@
               <h3>Cupcakes (4, 6, 9, 12 unidades)</h3>
               <p class="muted">Entrega en cajas con decoración temática</p>
               <div class="category__actions">
-                <a class="btn btn--primary" href="#contacto">Consultar</a>
-                <button class="btn btn--ghost" type="button" style="font-weight:bold;">
+                <!-- <a class="btn btn--primary" href="#contacto">Consultar</a> -->
+                <button class="btn btn--primary" type="button" style="font-weight:bold;">
                   <a href="{{ url_for('cupcakes') }}"> Ver productos</a>
                 </button>
               </div>
@@ -150,8 +150,8 @@
               <h3>Bocaditos (seleccionables)</h3>
               <p class="muted">Sabores Dulces y salados, con bandejas para eventos</p>
               <div class="category__actions">
-                <a class="btn btn--primary" href="#contacto">Consultar</a>
-                <button class="btn btn--ghost" type="button" style="font-weight:bold;">
+                <!-- <a class="btn btn--primary" href="#contacto">Consultar</a> -->
+                <button class="btn btn--primary" type="button" style="font-weight:bold;">
                   <a href="{{ url_for('snacks') }}"> Ver productos</a>
                 </button>
               </div>
@@ -165,8 +165,8 @@
               <h3>Combos (personalizados)</h3>
               <p class="muted">Mix de productos, cupcakes + bocaditos</p>
               <div class="category__actions" aria-disabled="true">
-                <a class="btn btn--primary" href="#contacto">Consultar</a>
-                <button class="btn btn--ghost" type="button" style="font-weight:bold;">
+                <!-- <a class="btn btn--primary" href="#contacto">Consultar</a> -->
+                <button class="btn btn--primary" type="button" style="font-weight:bold;">
                   <a href="#"> Ver productos</a>
                 </button>
               </div>
@@ -208,7 +208,7 @@
 
         <div class="cta-row">
           <a class="btn btn--quote" href="#contacto">Pedir por WhatsApp</a>
-          <a class="btn btn--ghost" href="#catalogo">Volver al catálogo</a>
+          <a class="btn btn--ghost" href="#catalogo">Volver al Catálogo</a>
         </div>
       </div>
     </section>
@@ -246,7 +246,8 @@
         <header class="section__head">
           <div>
             <h2>Contacto</h2>
-            <p class="muted">Cuéntanos el tema, fecha, porciones/cantidad y una referencia (foto).</p>
+            <!-- <p class="muted">Cuéntanos el tema, fecha, porciones/cantidad y una referencia (foto).</p> -->
+            <p class="muted">Cuéntanos cual es la categoría que te interesa.</p>
           </div>
         </header>
 
@@ -261,7 +262,7 @@
               <input type="tel" name="phone" placeholder="+51 ..." required />
             </label>
             <label>
-              Producto
+              Categoría
               <select name="product" required>
                 <option value="">Seleccionar…</option>
                 <option value="torta">Torta temática</option>
@@ -274,15 +275,16 @@
               <textarea name="details" style="font-weight: 200;" rows="4" placeholder="Tema, colores, fecha, cantidad/porciones, referencias…"></textarea>
             </label>
 
-            <button class="btn btn--primary" type="submit">Enviar consulta</button>
+            <button class="btn btn--quote" type="submit">Enviar consulta</button>
             <!-- <p class="tiny muted">
               *Este formulario es layout. Puedes conectarlo a Flask / WhatsApp API más adelante.
             </p> -->
           </form>
 
           <aside class="card card--info">
-            <h3>Pedido rápido</h3>
-            <p class="muted">Responde esto por WhatsApp y te cotizamos:</p>
+            <h3>Pedido Personalizado</h3>
+            <!-- <p class="muted">Responde esto por WhatsApp y te cotizamos:</p> -->
+            <p class="muted">Selecciona tu producto en el catálogo, personaliza y confirma</p>
             <ul class="list">
               <li>✅ Producto (torta/cupcakes/bocaditos)</li>
               <li>✅ Tema + foto referencia</li>
@@ -291,7 +293,8 @@
               <li>✅ Dirección (si aplica delivery)</li>
             </ul>
             <br>
-            <a id="btnAbrirWhatsapp" class="btn btn--quote" href="#" aria-label="Abrir WhatsApp">Abrir WhatsApp →</a>
+            <!-- <a id="btnAbrirWhatsapp" class="btn btn--quote" href="#" aria-label="Abrir WhatsApp">Abrir WhatsApp →</a> -->
+            <a class="btn btn--ghost" href="#catalogo" aria-label="Ver Catálogo">Ver el Catálogo</a>
 
             <div class="divider"></div>
             <p class="muted tiny">Horario de atención: Lun – Sáb : 9:00 am – 7:00 pm</p>
@@ -310,10 +313,6 @@
       </p>
     </div>
   </footer>
-
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
 
   <script>
     // ✅ WhatsApp destino (Matceli) - +51 930888299
@@ -361,7 +360,6 @@ ${detalles || "-"}
     // ✅ 1) Enviar consulta (submit) -> abre WhatsApp con mensaje armado
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-
       const nombre = form.elements["name"].value.trim();
       let telefono = cleanPhone(form.elements["phone"].value);
       const producto = form.elements["product"].value;
@@ -375,24 +373,7 @@ ${detalles || "-"}
 
       openWhatsApp(buildMessage());
     });
-
-    // ✅ 2) Botón “Abrir WhatsApp” -> abre WA con mensaje armado si hay datos; si no, mensaje genérico
-    btnWA.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      const nombre = form.elements["name"].value.trim();
-      const telefono = cleanPhone(form.elements["phone"].value);
-      const producto = form.elements["product"].value.trim();
-      const detalles = form.elements["details"].value.trim();
-
-      const hasAny = nombre || telefono || producto || detalles;
-
-      if (hasAny) {
-        openWhatsApp(buildMessage());
-      } else {
-        openWhatsApp("Hola Matceli. Quisiera información y cotización, por favor.");
-      }
-    });
   </script>
+
 </body>
 </html>
