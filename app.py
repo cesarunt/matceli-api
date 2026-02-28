@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
 from uuid import uuid4
 
-
 from models import db, User, Cake
 
 load_dotenv()
@@ -74,20 +73,6 @@ def create_app():
     @app.get("/")
     def index():
         return render_template("index.html")
-    
-    # @app.get("/")
-    # def home():
-    #     return {
-    #         "service": "matceli-api",
-    #         "status": "ok",
-    #         "endpoints": [
-    #             "/api/products",
-    #             "/api/products?category=tortas",
-    #             "/login",
-    #             "/admin/cakes"
-    #         ]
-    #     }
-
     # Cakes
     @app.route('/cakes')
     def cakes():
@@ -110,7 +95,7 @@ def create_app():
         q = Cake.query.filter_by(active=True)
         if category:
             q = q.filter_by(category=category)
-        items = q.order_by(Cake.created_at.desc()).all()
+        items = q.order_by(Cake.updated_at.desc()).all()
 
         return jsonify([
             {
@@ -170,7 +155,7 @@ def create_app():
         q = Cake.query
         if category:
             q = q.filter_by(category=category)
-        cakes = q.order_by(Cake.created_at.desc()).all()
+        cakes = q.order_by(Cake.updated_at.desc()).all()
         return render_template("cakes_admin.html", cakes=cakes, category=category, user=current_user)
 
     @app.get("/admin/cakes/new")

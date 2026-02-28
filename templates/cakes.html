@@ -89,6 +89,10 @@
                 <div class="product__body">
                   <h3 class="product__name">${p.name}</h3>
                   <p class="muted">${p.short_desc || ''}</p>
+                  <div class="product__meta">
+                    <span class="price-note">Precio desde</span>
+                    <span class="price-badge">S/ ${p.price_from}</span>
+                  </div>
                   <div class="product__actions">
                     <a class="btn btn--quote js-cotizar" href="#">Cotizar</a>
                   </div>
