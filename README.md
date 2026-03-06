@@ -6,3 +6,20 @@ Backend: Vista privada, solo para usuarios administradores de la web, donde se p
 
 Implementación
 Desarrollado con HTML, CSS, Python (Flask) + SQLite + CRUD, considerando un entorno virtual vnev
+
+
+Arquitectura del proyecto
+
+Website "matceli.com" (Usuarios)
+   ↓
+Cloudflare (CDN + HTTPS + Cache)
+   ↓
+GoDaddy (Dominio)
+   ↓
+Render (Hosting)
+   ├── Backend: Python + Flask
+   ├── Frontend: HTML + CSS + JS
+   └── PostgreSQL (Base de datos)
+            ↓
+        Cloudinary
+        (Imágenes)
