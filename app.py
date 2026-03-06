@@ -1,23 +1,18 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
 from flask import Flask, jsonify, request, render_template, redirect, url_for, flash
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_cors import CORS
-from dotenv import load_dotenv
-from werkzeug.utils import secure_filename
-from uuid import uuid4
+from cloudinary_utils import init_cloudinary, upload_image_file, delete_image_by_public_id
 
 from models import db, User, Cake
 
-load_dotenv()
-
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__)   
+    init_cloudinary()
     app.secret_key = os.getenv("SECRET_KEY", "key-2026$")
 
-    UPLOAD_FOLDER = os.path.join(app.root_path, "static", "uploads")
-    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
-    app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
     app.config["MAX_CONTENT_LENGTH"] = 8 * 1024 * 1024  # 8MB
     ALLOWED_EXT = {"png", "jpg", "jpeg", "webp"}
 
@@ -166,13 +161,13 @@ def create_app():
     @app.post("/admin/cakes/new")
     @login_required
     def cake_new_post():
-        img_path = save_upload(request.files.get("image_file"))
-
+        uploaded = save_upload(request.files.get("image_file"))
         c = Cake(
             name=request.form.get("name", "").strip(),
             category=request.form.get("category", "tortas"),
             short_desc=request.form.get("short_desc", "").strip(),
-            image_url=img_path,  # <- ruta del archivo subido
+            image_url=uploaded["url"] if uploaded else None,
+            image_public_id=uploaded["public_id"] if uploaded else None,
             active=(request.form.get("active") == "on"),
         )
 
@@ -214,9 +209,18 @@ def create_app():
         c.servings_from = int(servings) if servings else None
 
         # Si subieron una nueva imagen, reemplaza. Si no, conserva la actual.
-        new_img = save_upload(request.files.get("image_file"))
-        if new_img:
-            c.image_url = new_img
+        uploaded = save_upload(request.files.get("image_file"))
+        
+        if uploaded:
+            # borrar imagen anterior en Cloudinary
+            if c.image_public_id:
+                try:
+                    delete_image_by_public_id(c.image_public_id)
+                except Exception:
+                    app.logger.exception("No se pudo eliminar la imagen anterior en Cloudinary")
+
+            c.image_url = uploaded["url"]
+            c.image_public_id = uploaded["public_id"]
 
         db.session.commit()
         flash("Producto actualizado ✅", "ok")
@@ -227,9 +231,16 @@ def create_app():
     def cake_delete(cid: int):
         c = db.session.get(Cake, cid)
         if c:
+            if c.image_public_id:
+                try:
+                    delete_image_by_public_id(c.image_public_id)
+                except Exception:
+                    app.logger.exception("No se pudo eliminar la imagen en Cloudinary")
+
             db.session.delete(c)
             db.session.commit()
             flash("Producto eliminado ✅", "ok")
+        
         return redirect(url_for("cakes_admin"))
     
     # -------------------------
@@ -238,20 +249,21 @@ def create_app():
     def allowed_file(filename: str) -> bool:
         return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXT
 
-    def save_upload(file_storage) -> str | None:
+    def save_upload(file_storage):
         if not file_storage or file_storage.filename == "":
             return None
         if not allowed_file(file_storage.filename):
             return None
+        
+        uploaded = upload_image_file(file_storage)
+        if not uploaded:
+            return None
 
-        ext = file_storage.filename.rsplit(".", 1)[1].lower()
-        filename = secure_filename(f"{uuid4().hex}.{ext}")
-        path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-        file_storage.save(path)
-
-        # Esto es lo que guardarás en BD (ruta pública)
-        return f"/static/uploads/{filename}"
-
+        return {
+            "url": uploaded["url"],
+            "public_id": uploaded["public_id"]
+        }
+    
     return app
 
 app = create_app()

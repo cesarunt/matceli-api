@@ -26,7 +26,8 @@ class Cake(db.Model):
     price_from = db.Column(db.Float, nullable=True)  # opcional: precio "desde"
     servings_from = db.Column(db.Integer, nullable=True)  # opcional
 
-    image_url = db.Column(db.String(400), nullable=True)  # URL pública (Vercel / Cloudinary / etc.)
+    image_url = db.Column(db.String(255), nullable=True)  # URL pública (Vercel / Cloudinary / etc.)
+    image_public_id = db.Column(db.String(255), nullable=True)  # ID interno de Cloudinary
     active = db.Column(db.Boolean, default=True)
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
